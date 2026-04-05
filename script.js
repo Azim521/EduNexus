@@ -1,44 +1,71 @@
-const API = "https://edunexus-e0p8.onrender.com";
-
-let role = "student";
-
-function switchTab(type) {
-  role = type;
-
-  document.getElementById("studentTab").classList.remove("active");
-  document.getElementById("tutorTab").classList.remove("active");
-
-  document.getElementById(type + "Tab").classList.add("active");
-
-  if (type === "tutor") {
-    document.getElementById("tutorFields").style.display = "block";
-  } else {
-    document.getElementById("tutorFields").style.display = "none";
-  }
+// ─── MOBILE NAV ───
+const hamburger = document.querySelector('.hamburger');
+const mobileNav = document.querySelector('.mobile-nav');
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
 }
+document.querySelectorAll('.mobile-nav a').forEach(a => {
+  a.addEventListener('click', () => mobileNav?.classList.remove('open'));
+});
 
-async function submitForm() {
-  const email = document.getElementById("email").value;
+// ─── ACTIVE NAV LINK ───
+const page = window.location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('.nav-links-list a, .mobile-nav a').forEach(a => {
+  if (a.getAttribute('href') === page) a.classList.add('active');
+});
 
-  if (!email) {
-    alert("Enter email");
-    return;
-  }
-
-  const res = await fetch(`${API}/register`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      email: email,
-      password: "default123",
-      role: role
-    })
+// ─── FAQ ACCORDION ───
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(q => {
+    q.classList.remove('open');
+    q.nextElementSibling.style.maxHeight = '0';
   });
-
-  const data = await res.json();
-  alert(data.message);
+  if (!isOpen) {
+    btn.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
 }
 
-function scrollToForm() {
-  document.querySelector(".form-card").scrollIntoView({ behavior: "smooth" });
+// ─── COUNTER ANIMATION ───
+function animateCounter(el) {
+  const target = el.dataset.target;
+  const isNum = !isNaN(target);
+  if (!isNum) return;
+  const duration = 1600;
+  const num = parseInt(target);
+  const suffix = el.dataset.suffix || '';
+  const step = num / (duration / 16);
+  let current = 0;
+  const t = setInterval(() => {
+    current += step;
+    if (current >= num) { el.textContent = num.toLocaleString() + suffix; clearInterval(t); }
+    else el.textContent = Math.floor(current).toLocaleString() + suffix;
+  }, 16);
 }
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+// ─── SCROLL REVEAL ───
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('revealed'), (parseInt(e.target.dataset.delay) || 0));
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.dataset.delay = (i % 4) * 80;
+  el.style.cssText = 'opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;';
+  revealObs.observe(el);
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.revealed').forEach(el => {
+    el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+  });
+});
+document.head.insertAdjacentHTML('beforeend', '<style>.revealed{opacity:1!important;transform:translateY(0)!important}</style>');
