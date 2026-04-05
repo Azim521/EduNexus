@@ -1,113 +1,126 @@
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #0f172a;
-    color: white;
+  margin: 0;
+  font-family: 'Segoe UI';
+  background: #0f172a;
+  color: white;
 }
 
 /* NAVBAR */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+  background: #020617;
 }
 
 nav a {
-    margin: 0 15px;
-    color: #cbd5f5;
-    text-decoration: none;
-    transition: 0.3s;
+  margin: 0 10px;
+  color: #cbd5f5;
+  text-decoration: none;
 }
 
-nav a:hover {
-    color: white;
+/* HERO */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 10%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
 }
 
-nav button {
-    background: #6366f1;
-    border: none;
-    padding: 8px 16px;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
+/* LEFT */
+.hero-left {
+  max-width: 500px;
 }
 
-/* HERO SECTION */
-#home {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #6366f1, #3b82f6);
-    text-align: center;
+.hero-left h1 {
+  font-size: 3rem;
 }
 
-#home h2 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+.hero-left p {
+  margin-top: 10px;
 }
 
-#home p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+.hero-buttons button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
 }
 
-#home button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 16px;
-    background: white;
-    color: #3b82f6;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+/* FORM */
+.form-card {
+  background: white;
+  color: black;
+  padding: 25px;
+  border-radius: 16px;
+  width: 350px;
 }
 
-/* SECTIONS */
-section {
-    padding: 80px 20px;
-    text-align: center;
+.form-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-#services li {
-    list-style: none;
-    background: #1e293b;
-    margin: 10px auto;
-    padding: 15px;
-    width: 300px;
-    border-radius: 10px;
+.badge {
+  background: #d1fae5;
+  color: #16a34a;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
 }
 
-/* MODAL */
-#loginBox, #registerBox {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #1e293b;
-    padding: 25px;
-    border-radius: 10px;
-    width: 300px;
-    display: none;
+.tabs {
+  display: flex;
+  margin: 15px 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background: #eee;
+}
+
+.tab.active {
+  background: #3b82f6;
+  color: white;
 }
 
 input, select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: none;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background: #6366f1;
-    border: none;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
+.main-btn {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.note {
+  font-size: 12px;
+  text-align: center;
+}
+
+/* SERVICES */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
 }
