@@ -1,50 +1,47 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
 body {
-    background: #f5f7fa;
-    color: #333;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: white;
 }
 
 /* NAVBAR */
 header {
-    background: #0f172a;
-    color: white;
-    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 50px;
+    background: rgba(15, 23, 42, 0.9);
 }
 
 nav a {
     margin: 0 15px;
-    color: white;
+    color: #cbd5f5;
     text-decoration: none;
-    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: white;
 }
 
 nav button {
-    background: #3b82f6;
+    background: #6366f1;
     border: none;
-    padding: 8px 15px;
+    padding: 8px 16px;
     color: white;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-/* HERO */
+/* HERO SECTION */
 #home {
-    height: 80vh;
-    background: linear-gradient(to right, #3b82f6, #6366f1);
-    color: white;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
     text-align: center;
 }
 
@@ -55,65 +52,62 @@ nav button {
 
 #home p {
     font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+#home button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 16px;
+    background: white;
+    color: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 /* SECTIONS */
 section {
-    padding: 60px 40px;
+    padding: 80px 20px;
     text-align: center;
 }
 
-section h2 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-}
-
-/* SERVICES */
-#services ul {
-    list-style: none;
-}
-
 #services li {
-    background: white;
+    list-style: none;
+    background: #1e293b;
     margin: 10px auto;
     padding: 15px;
-    max-width: 400px;
+    width: 300px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* LOGIN MODAL */
+/* MODAL */
 #loginBox, #registerBox {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
-    padding: 30px;
+    background: #1e293b;
+    padding: 25px;
     border-radius: 10px;
     width: 300px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: none;
 }
 
 input, select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 6px;
+    border: none;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background: #3b82f6;
+    background: #6366f1;
     border: none;
     color: white;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-}
-
-p {
-    cursor: pointer;
-    color: #3b82f6;
 }
