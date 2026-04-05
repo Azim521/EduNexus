@@ -1,93 +1,68 @@
-// ================= CONFIG =================
-const API = "https://edunexus-e0p8.onrender.com"; // change after deploy
+const API = "https://edunexus-e0p8.onrender.com";
 
-// ================= NAVIGATION (safe basic) =================
-function navigate(page) {
-    window.location.href = page;
+// ================= UI TOGGLE =================
+function showLogin() {
+    document.getElementById("loginBox").style.display = "block";
+    document.getElementById("registerBox").style.display = "none";
+}
+
+function showRegister() {
+    document.getElementById("registerBox").style.display = "block";
+    document.getElementById("loginBox").style.display = "none";
 }
 
 // ================= LOGIN =================
 async function login() {
-    const email = document.getElementById("email")?.value;
-    const password = document.getElementById("password")?.value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     if (!email || !password) {
-        alert("Please enter email and password");
+        alert("Enter email and password");
         return;
     }
 
-    try {
-        const res = await fetch(`${API}/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
+    const res = await fetch(`${API}/login`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, password })
+    });
 
-        const data = await res.json();
+    const data = await res.json();
 
-        if (res.ok) {
-            alert("Login successful");
+    if (res.ok) {
+        alert("Login successful");
 
-            // Redirect based on role
-            if (data.role === "admin") {
-                window.location.href = "admin.html";
-            } else if (data.role === "tutor") {
-                window.location.href = "tutor.html";
-            } else {
-                window.location.href = "student.html";
-            }
+        if (data.role === "admin") {
+            window.location.href = "admin.html";
+        } else if (data.role === "tutor") {
+            window.location.href = "tutor.html";
         } else {
-            alert(data.message || "Login failed");
+            window.location.href = "student.html";
         }
-    } catch (err) {
-        alert("Server error. Try again later.");
+    } else {
+        alert(data.message);
     }
 }
 
 // ================= REGISTER =================
 async function register() {
-    const email = document.getElementById("reg-email")?.value;
-    const password = document.getElementById("reg-password")?.value;
-    const role = document.getElementById("role")?.value;
+    const email = document.getElementById("reg-email").value;
+    const password = document.getElementById("reg-password").value;
+    const role = document.getElementById("role").value;
 
-    if (!email || !password || !role) {
-        alert("Please fill all fields");
+    if (!email || !password) {
+        alert("Fill all fields");
         return;
     }
 
-    try {
-        const res = await fetch(`${API}/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, role })
-        });
+    const res = await fetch(`${API}/register`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, password, role })
+    });
 
-        const data = await res.json();
-        alert(data.message);
-    } catch (err) {
-        alert("Server error");
-    }
+    const data = await res.json();
+    alert(data.message);
+
+    showLogin();
 }
-
-// ================= SIMPLE UI EFFECTS =================
-
-// Smooth scroll (optional)
-document.querySelectorAll("a[href^='#']").forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
-        }
-    });
-});
-
-// Basic button animation
-document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("mouseover", () => {
-        btn.style.opacity = "0.8";
-    });
-    btn.addEventListener("mouseout", () => {
-        btn.style.opacity = "1";
-    });
-});
