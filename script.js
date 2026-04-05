@@ -69,3 +69,38 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 document.head.insertAdjacentHTML('beforeend', '<style>.revealed{opacity:1!important;transform:translateY(0)!important}</style>');
+function openLogin() {
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
+
+async function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    alert("Enter email and password");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API}/login`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (res.ok) {
+      closeLogin();
+    }
+
+  } catch (err) {
+    alert("Server error");
+  }
+}
