@@ -326,3 +326,13 @@ footer { background: var(--ink); color: #fff; padding: 50px 5vw 28px; border-top
   border-radius: 16px;
   width: 320px;
 }
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
