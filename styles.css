@@ -1,38 +1,119 @@
-body {
-    font-family: Arial;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
+body {
+    background: #f5f7fa;
+    color: #333;
+}
+
+/* NAVBAR */
 header {
-    background: #1e3a8a;
+    background: #0f172a;
     color: white;
-    padding: 15px;
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 nav a {
-    margin: 0 10px;
+    margin: 0 15px;
     color: white;
     text-decoration: none;
+    font-weight: 500;
 }
 
+nav button {
+    background: #3b82f6;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* HERO */
+#home {
+    height: 80vh;
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#home h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+#home p {
+    font-size: 1.2rem;
+}
+
+/* SECTIONS */
 section {
-    padding: 40px;
+    padding: 60px 40px;
+    text-align: center;
 }
 
+section h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* SERVICES */
+#services ul {
+    list-style: none;
+}
+
+#services li {
+    background: white;
+    margin: 10px auto;
+    padding: 15px;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* LOGIN MODAL */
 #loginBox, #registerBox {
     position: fixed;
-    top: 20%;
-    left: 35%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: white;
-    padding: 20px;
-    border: 1px solid black;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 input, select {
-    display: block;
+    width: 100%;
+    padding: 10px;
     margin: 10px 0;
-    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #3b82f6;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+p {
+    cursor: pointer;
+    color: #3b82f6;
 }
