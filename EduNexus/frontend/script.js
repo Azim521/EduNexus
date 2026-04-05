@@ -1,5 +1,5 @@
 // ================= CONFIG =================
-const API = "https://your-render-url.onrender.com"; // change after deploy
+const API = "https://edunexus-e0p8.onrender.com"; // change after deploy
 
 // ================= NAVIGATION (safe basic) =================
 function navigate(page) {
