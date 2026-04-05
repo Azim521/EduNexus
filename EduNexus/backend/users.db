@@ -1,1 +1,4 @@
-
+INSERT INTO users (name, email, password, role)
+VALUES 
+('Test Student', 'student@edunexus.com', '123456', 'student'),
+('Test Tutor', 'tutor@edunexus.com', '123456', 'tutor');
