@@ -1,71 +1,93 @@
-// ─── MOBILE NAV ───
-const hamburger = document.querySelector('.hamburger');
-const mobileNav = document.querySelector('.mobile-nav');
-if (hamburger && mobileNav) {
-  hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
-}
-document.querySelectorAll('.mobile-nav a').forEach(a => {
-  a.addEventListener('click', () => mobileNav?.classList.remove('open'));
-});
+// ================= CONFIG =================
+const API = "https://your-render-url.onrender.com"; // change after deploy
 
-// ─── ACTIVE NAV LINK ───
-const page = window.location.pathname.split('/').pop() || 'index.html';
-document.querySelectorAll('.nav-links-list a, .mobile-nav a').forEach(a => {
-  if (a.getAttribute('href') === page) a.classList.add('active');
-});
-
-// ─── FAQ ACCORDION ───
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const isOpen = btn.classList.contains('open');
-  document.querySelectorAll('.faq-q.open').forEach(q => {
-    q.classList.remove('open');
-    q.nextElementSibling.style.maxHeight = '0';
-  });
-  if (!isOpen) {
-    btn.classList.add('open');
-    answer.style.maxHeight = answer.scrollHeight + 'px';
-  }
+// ================= NAVIGATION (safe basic) =================
+function navigate(page) {
+    window.location.href = page;
 }
 
-// ─── COUNTER ANIMATION ───
-function animateCounter(el) {
-  const target = el.dataset.target;
-  const isNum = !isNaN(target);
-  if (!isNum) return;
-  const duration = 1600;
-  const num = parseInt(target);
-  const suffix = el.dataset.suffix || '';
-  const step = num / (duration / 16);
-  let current = 0;
-  const t = setInterval(() => {
-    current += step;
-    if (current >= num) { el.textContent = num.toLocaleString() + suffix; clearInterval(t); }
-    else el.textContent = Math.floor(current).toLocaleString() + suffix;
-  }, 16);
-}
-const counterObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+// ================= LOGIN =================
+async function login() {
+    const email = document.getElementById("email")?.value;
+    const password = document.getElementById("password")?.value;
 
-// ─── SCROLL REVEAL ───
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('revealed'), (parseInt(e.target.dataset.delay) || 0));
-      revealObs.unobserve(e.target);
+    if (!email || !password) {
+        alert("Please enter email and password");
+        return;
     }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.dataset.delay = (i % 4) * 80;
-  el.style.cssText = 'opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;';
-  revealObs.observe(el);
+
+    try {
+        const res = await fetch(`${API}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            alert("Login successful");
+
+            // Redirect based on role
+            if (data.role === "admin") {
+                window.location.href = "admin.html";
+            } else if (data.role === "tutor") {
+                window.location.href = "tutor.html";
+            } else {
+                window.location.href = "student.html";
+            }
+        } else {
+            alert(data.message || "Login failed");
+        }
+    } catch (err) {
+        alert("Server error. Try again later.");
+    }
+}
+
+// ================= REGISTER =================
+async function register() {
+    const email = document.getElementById("reg-email")?.value;
+    const password = document.getElementById("reg-password")?.value;
+    const role = document.getElementById("role")?.value;
+
+    if (!email || !password || !role) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API}/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password, role })
+        });
+
+        const data = await res.json();
+        alert(data.message);
+    } catch (err) {
+        alert("Server error");
+    }
+}
+
+// ================= SIMPLE UI EFFECTS =================
+
+// Smooth scroll (optional)
+document.querySelectorAll("a[href^='#']").forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
+    });
 });
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.revealed').forEach(el => {
-    el.style.opacity = '1'; el.style.transform = 'translateY(0)';
-  });
+
+// Basic button animation
+document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("mouseover", () => {
+        btn.style.opacity = "0.8";
+    });
+    btn.addEventListener("mouseout", () => {
+        btn.style.opacity = "1";
+    });
 });
-document.head.insertAdjacentHTML('beforeend', '<style>.revealed{opacity:1!important;transform:translateY(0)!important}</style>');
