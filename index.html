@@ -1,82 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduNexus</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>EduNexus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <header>
-    <h1>EduNexus</h1>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <button onclick="showLogin()">Login</button>
-    </nav>
+  <h2>EduNexus</h2>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <!-- HERO -->
-<section id="home">
-    <h2>Learn Smarter with EduNexus</h2>
-    <p>Connect students with expert tutors instantly.</p>
+<section class="hero" id="home">
 
-    <button onclick="showLogin()">Get Started</button>
+  <!-- LEFT -->
+  <div class="hero-left">
+    <h1>Your Batchmate is Your Best Tutor</h1>
+    <p>Connect with peers instantly and learn faster.</p>
+
+    <div class="hero-buttons">
+      <button onclick="scrollToForm()">Get Started</button>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="form-card">
+
+    <div class="form-header">
+      <h3>Join EduNexus</h3>
+      <span class="badge">● Early Access Open</span>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('student')" id="studentTab">
+        I need help 📚
+      </button>
+      <button class="tab" onclick="switchTab('tutor')" id="tutorTab">
+        I can teach 🎓
+      </button>
+    </div>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="reg" placeholder="Registration No">
+    <input type="email" id="email" placeholder="Email">
+
+    <select id="course">
+      <option>Select your course</option>
+      <option>B.Tech</option>
+      <option>BBA</option>
+    </select>
+
+    <select id="subject">
+      <option>Select subject</option>
+      <option>DSA</option>
+      <option>Math</option>
+    </select>
+
+    <div id="tutorFields" style="display:none;">
+      <input type="text" placeholder="CGPA">
+      <input type="text" placeholder="Phone">
+    </div>
+
+    <button onclick="submitForm()" class="main-btn">
+      Request Early Access →
+    </button>
+
+    <p class="note">🔒 Free to join · No spam</p>
+
+  </div>
+
 </section>
 
 <!-- SERVICES -->
 <section id="services">
-    <h2>Our Services</h2>
-    <ul>
-        <li>1-on-1 Tutoring</li>
-        <li>Live Classes</li>
-        <li>Career Guidance</li>
-    </ul>
+  <h2>Our Services</h2>
+  <div class="cards">
+    <div class="card">1-on-1 Tutoring</div>
+    <div class="card">Live Classes</div>
+    <div class="card">Career Guidance</div>
+  </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-    <h2>About Us</h2>
-    <p>EduNexus is a platform connecting students and tutors efficiently.</p>
+  <h2>About Us</h2>
+  <p>EduNexus connects students with expert tutors efficiently.</p>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: support@edunexus.com</p>
+  <h2>Contact</h2>
+  <p>Email: support@edunexus.com</p>
 </section>
 
-<!-- LOGIN MODAL -->
-<div id="loginBox" style="display:none;">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p onclick="showRegister()">New user? Register</p>
-</div>
-
-<!-- REGISTER MODAL -->
-<div id="registerBox" style="display:none;">
-    <h2>Register</h2>
-    <input type="email" id="reg-email" placeholder="Email">
-    <input type="password" id="reg-password" placeholder="Password">
-
-    <select id="role">
-        <option value="student">Student</option>
-        <option value="tutor">Tutor</option>
-        <option value="admin">Admin</option>
-    </select>
-
-    <button onclick="register()">Register</button>
-    <p onclick="showLogin()">Already have account? Login</p>
-</div>
-
 <script src="script.js"></script>
-
 </body>
 </html>
