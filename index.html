@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduNexus — Peer Learning at LPU</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ─── HERO ─── */
+.hero {
+  padding: 120px 5vw 80px;
+  display: grid; grid-template-columns: 1fr 480px;
+  gap: 5rem; align-items: center;
+  min-height: 100vh; position: relative;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--primary); background: var(--primary-soft); border: 1px solid rgba(37,99,235,0.18);
+  padding: 5px 14px; border-radius: 99px; margin-bottom: 1.4rem;
+  animation: riseIn .6s ease both;
+}
+.hero-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+  font-weight: 800; line-height: 1.06; letter-spacing: -0.04em;
+  animation: riseIn .6s .1s ease both;
+}
+.hero-title em { font-style: normal; color: var(--primary); }
+.hero-title .line-under { position: relative; display: inline-block; }
+.hero-title .line-under::after {
+  content: ''; position: absolute; left: 0; bottom: 2px;
+  width: 100%; height: 4px; background: var(--primary); border-radius: 2px; opacity: .35;
+}
+.hero-desc { margin-top: 1.4rem; font-size: 1.05rem; color: var(--ink-2); max-width: 500px; line-height: 1.75; animation: riseIn .6s .2s ease both; }
+.hero-actions { display: flex; align-items: center; gap: 1rem; margin-top: 2.2rem; animation: riseIn .6s .3s ease both; flex-wrap: wrap; }
+.hero-trust { display: flex; align-items: center; gap: 12px; margin-top: 2.8rem; animation: riseIn .6s .4s ease both; flex-wrap: wrap; }
+.trust-avatars { display: flex; }
+.trust-avatars span {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: #fff; margin-left: -8px;
+}
+.trust-avatars span:first-child { margin-left: 0; }
+.ta1{background:#2563eb} .ta2{background:#16a34a} .ta3{background:#d97706} .ta4{background:#9333ea}
+.trust-text { font-size: 0.83rem; color: var(--muted); }
+.trust-text strong { color: var(--ink); }
+
+/* HERO CARD */
+.hero-card-wrap { animation: riseIn .8s .2s ease both; position: relative; }
+.pitch-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+}
+.pitch-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.pitch-card-header h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1rem; }
+.live-badge {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--green); background: var(--green-soft);
+  border-radius: 99px; padding: 3px 10px; border: 1px solid rgba(22,163,74,0.2);
+}
+.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 1.5s ease infinite; }
+.card-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+.tab-btn {
+  flex: 1; padding: 8px 12px; border-radius: 8px;
+  font-size: 0.83rem; font-weight: 600; cursor: pointer;
+  border: 1.5px solid var(--border); background: transparent; color: var(--muted);
+  transition: all .2s; font-family: inherit;
+}
+.tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.submit-btn {
+  width: 100%; padding: 12px; border-radius: 10px;
+  background: var(--primary); color: #fff;
+  font-size: 0.95rem; font-weight: 600; border: none;
+  cursor: pointer; font-family: inherit; transition: all .2s; margin-top: 6px;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.3);
+}
+.submit-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.card-note { text-align: center; font-size: 0.76rem; color: var(--muted); margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.tutor-extra { display: none; }
+.tutor-extra.show { display: block; }
+.success-state { display: none; text-align: center; padding: 20px 0; }
+.success-state.show { display: block; }
+.success-icon { font-size: 3rem; margin-bottom: 1rem; }
+.success-state h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
+.success-state p { font-size: 0.88rem; color: var(--muted); }
+
+.floating-chip {
+  position: absolute; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  font-size: 0.8rem; font-weight: 500;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.chip-1 { top: -16px; left: -20px; animation: floatY 5s ease-in-out infinite; }
+.chip-2 { bottom: 60px; right: -24px; animation: floatY 4s 1s ease-in-out infinite; }
+.chip-icon { font-size: 1.1rem; }
+
+/* ─── SUBJECTS GRID ─── */
+.subjects-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2.5rem; }
+.subj-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 10px 18px;
+  font-size: 0.88rem; font-weight: 500; transition: all .2s; cursor: default;
+}
+.subj-pill:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; text-align: center; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-trust { justify-content: center; }
+  .hero-card-wrap { max-width: 460px; margin: 0 auto; }
+  .chip-1 { display: none; }
+  .chip-2 { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">EN</div>
+    EduNexus
+  </a>
+  <ul class="nav-links-list">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-pill"><span class="lpu-dot"></span> Starting at LPU</div>
+    <a href="#register" class="btn btn-primary">Join Early Access</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="contact.html">Contact</a>
+  <a href="#register" class="btn btn-primary" style="margin-top:0.5rem;text-align:center;justify-content:center;">Join Early Access</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">🎓 Peer-to-Peer Learning · LPU Campus</div>
+    <h1 class="hero-title">
+      Your Batchmate<br>
+      is Your Best<br>
+      <em class="line-under">Tutor.</em>
+    </h1>
+    <p class="hero-desc">EduNexus connects LPU students with expert peers in the same college — for instant doubt solving, affordable 1-on-1 sessions, and real academic growth. We're launching soon and want you in first.</p>
+    <div class="hero-actions">
+      <a href="#register" class="btn btn-primary" onclick="openTab('student')">Find a Tutor →</a>
+      <a href="#register" class="btn btn-ghost" onclick="openTab('tutor')">Become a Tutor</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-avatars">
+        <span class="ta1">A</span><span class="ta2">S</span><span class="ta3">V</span><span class="ta4">R</span>
+      </div>
+      <div class="trust-text"><strong>Be among the first</strong> to join EduNexus at LPU</div>
+    </div>
+  </div>
+
+  <div class="hero-card-wrap">
+    <div class="floating-chip chip-1"><span class="chip-icon">⚡</span> Matched in &lt; 3 min</div>
+    <div class="pitch-card" id="register">
+      <div class="pitch-card-header">
+        <h3>Join EduNexus</h3>
+        <div class="live-badge"><span class="live-dot"></span>Early Access Open</div>
+      </div>
+      <div class="card-tabs">
+        <button class="tab-btn active" id="tab-student" onclick="switchTab('student')">I need help 📚</button>
+        <button class="tab-btn" id="tab-tutor" onclick="switchTab('tutor')">I can teach 🎓</button>
+      </div>
+      <div id="form-wrap">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name" id="inp-name">
+          </div>
+          <div class="form-group">
+            <label>Registration No.</label>
+            <input type="text" placeholder="e.g. 12308497" id="inp-reg">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>LPU Email</label>
+          <input type="email" placeholder="yourname@lpu.co.in" id="inp-email">
+        </div>
+        <div class="form-group">
+          <label>Course & Year</label>
+          <select id="inp-course">
+            <option value="">Select your course</option>
+            <option>B.Tech CSE — 1st Year</option>
+            <option>B.Tech CSE — 2nd Year</option>
+            <option>B.Tech CSE — 3rd Year</option>
+            <option>B.Tech CSE — 4th Year</option>
+            <option>B.Tech ECE — 2nd Year</option>
+            <option>B.Tech ME — 1st Year</option>
+            <option>BCA — 1st Year</option>
+            <option>BBA — 1st Year</option>
+            <option>MBA — 1st Year</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="subj-label">Subject You Need Help In</label>
+          <select id="inp-subject">
+            <option value="">Select subject</option>
+            <option>Data Structures & Algorithms</option>
+            <option>Mathematics / Calculus</option>
+            <option>Physics</option>
+            <option>Machine Learning / AI</option>
+            <option>Python / Programming</option>
+            <option>DBMS</option>
+            <option>Operating Systems</option>
+            <option>Computer Networks</option>
+            <option>Digital Electronics</option>
+            <option>English / Communication</option>
+            <option>Java & OOP</option>
+            <option>Data Science</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="tutor-extra" id="tutor-extra">
+          <div class="form-group">
+            <label>Your CGPA</label>
+            <input type="text" placeholder="e.g. 8.5" id="inp-cgpa">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number</label>
+            <input type="tel" placeholder="+91 XXXXX XXXXX" id="inp-phone">
+          </div>
+        </div>
+        <button class="submit-btn" onclick="handleSubmit()">
+          <span id="submit-text">Request Early Access →</span>
+        </button>
+        <p class="card-note">🔒 LPU students only · Free to join · No spam</p>
+      </div>
+      <div class="success-state" id="success-state">
+        <div class="success-icon">🎉</div>
+        <h3>You're on the list!</h3>
+        <p>We'll reach out to your LPU email as soon as EduNexus goes live on campus. Stay tuned!</p>
+      </div>
+    </div>
+    <div class="floating-chip chip-2"><span class="chip-icon">🆓</span> Free demo session</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>📐</span> Mathematics</div>
+    <div class="marquee-item"><span>💻</span> DSA & Algorithms</div>
+    <div class="marquee-item"><span>🤖</span> Machine Learning</div>
+    <div class="marquee-item"><span>⚡</span> Physics</div>
+    <div class="marquee-item"><span>🗄️</span> DBMS</div>
+    <div class="marquee-item"><span>🌐</span> Computer Networks</div>
+    <div class="marquee-item"><span>🖥️</span> Operating Systems</div>
+    <div class="marquee-item"><span>🧬</span> Chemistry</div>
+    <div class="marquee-item"><span>📊</span> Statistics</div>
+    <div class="marquee-item"><span>📝</span> English & Comms</div>
+    <div class="marquee-item"><span>💰</span> Economics</div>
+    <div class="marquee-item"><span>🔌</span> Digital Electronics</div>
+    <div class="marquee-item"><span>📐</span> Mathematics</div>
+    <div class="marquee-item"><span>💻</span> DSA & Algorithms</div>
+    <div class="marquee-item"><span>🤖</span> Machine Learning</div>
+    <div class="marquee-item"><span>⚡</span> Physics</div>
+    <div class="marquee-item"><span>🗄️</span> DBMS</div>
+    <div class="marquee-item"><span>🌐</span> Computer Networks</div>
+    <div class="marquee-item"><span>🖥️</span> Operating Systems</div>
+    <div class="marquee-item"><span>🧬</span> Chemistry</div>
+    <div class="marquee-item"><span>📊</span> Statistics</div>
+    <div class="marquee-item"><span>📝</span> English & Comms</div>
+    <div class="marquee-item"><span>💰</span> Economics</div>
+    <div class="marquee-item"><span>🔌</span> Digital Electronics</div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="section" id="why">
+  <div class="section-kicker">Why EduNexus</div>
+  <div class="section-h">Built different. Built for LPU.</div>
+  <p class="section-p">We're not another random tutoring app. This is peer learning — your own batchmates, your own subjects, your own campus.</p>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-icon">⚡</div><div class="why-title">Instant Doubt Solving</div><p class="why-desc">Get matched with a peer tutor in minutes — not hours. Ask a doubt now, get it solved before your next lecture.</p></div>
+    <div class="why-card reveal"><div class="why-icon">💸</div><div class="why-title">Affordable Pay-Per-Hour</div><p class="why-desc">No expensive subscriptions. Pay only for the sessions you take. Tutor pricing set by students, for students.</p></div>
+    <div class="why-card reveal"><div class="why-icon">🤝</div><div class="why-title">Peer Tutors You Trust</div><p class="why-desc">Your tutor is an LPU senior or batchmate who aced the same exam. They know exactly what tripped you up.</p></div>
+    <div class="why-card reveal"><div class="why-icon">🎯</div><div class="why-title">Smart AI Matching</div><p class="why-desc">Our system matches you based on your course, subject, and schedule — not just who's randomly available.</p></div>
+    <div class="why-card reveal"><div class="why-icon">🆓</div><div class="why-title">Free Demo, Always</div><p class="why-desc">Try your first session for free. No credit card, no commitment. If you love it, book more. If not, no hard feelings.</p></div>
+    <div class="why-card reveal"><div class="why-icon">📍</div><div class="why-title">Online & Offline</div><p class="why-desc">Video call from your room or meet in the library. You decide the format — we make both seamless.</p></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-dark" id="how">
+  <div class="section-kicker">The Process</div>
+  <div class="section-h">From doubt to clarity in 4 steps</div>
+  <p class="section-p">We've made it stupidly simple so you never lose study momentum.</p>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><div class="step-icon">📝</div><div class="step-title">Sign Up</div><p class="step-desc">Register with your LPU email. Takes 60 seconds. Tell us your course and subjects.</p></div>
+    <div class="step"><div class="step-n">02</div><div class="step-icon">🔍</div><div class="step-title">Post Your Doubt</div><p class="step-desc">Describe what you're stuck on — a topic, a question, or a concept you need explained.</p></div>
+    <div class="step"><div class="step-n">03</div><div class="step-icon">⚡</div><div class="step-title">Get Matched</div><p class="step-desc">Our AI finds the best peer tutor at LPU for your subject and schedule. Instantly.</p></div>
+    <div class="step"><div class="step-n">04</div><div class="step-icon">🎯</div><div class="step-title">Learn & Grow</div><p class="step-desc">Start your session — online or on campus. Pay per hour, only when you're satisfied.</p></div>
+  </div>
+</section>
+
+<!-- FOR STUDENTS & TUTORS -->
+<section class="section">
+  <div class="section-kicker">Who it's for</div>
+  <div class="section-h">Two sides. One platform.</div>
+  <p class="section-p" style="margin-bottom:2.5rem">Whether you need help or want to share your knowledge — EduNexus is built for you.</p>
+  <div class="dual-section">
+    <div class="dual-card student reveal">
+      <div class="dual-badge">👨‍🎓 For Students</div>
+      <h3>Stop struggling alone with tough concepts</h3>
+      <p>Get 1-on-1 help from a peer who just cracked the same syllabus. Real explanations, not lecture slides.</p>
+      <ul class="dual-list">
+        <li><div class="dl-check">✓</div> Instant tutor matching by subject & course</li>
+        <li><div class="dl-check">✓</div> Free 30-min demo session, no card needed</li>
+        <li><div class="dl-check">✓</div> Online video or offline meet on campus</li>
+        <li><div class="dl-check">✓</div> Pay per hour — no lock-in plans</li>
+        <li><div class="dl-check">✓</div> Rated & verified LPU peer tutors only</li>
+      </ul>
+      <button class="dual-cta btn btn-primary" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'});switchTab('student')">Find My Tutor →</button>
+      <div class="dual-deco">📚</div>
+    </div>
+    <div class="dual-card tutor reveal">
+      <div class="dual-badge">🎓 For Tutors</div>
+      <h3>Turn your knowledge into real income</h3>
+      <p>If you're strong in a subject, EduNexus gives you the platform to teach, earn, and build your reputation on campus.</p>
+      <ul class="dual-list">
+        <li><div class="dl-check">✓</div> Earn ₹100–₹500/hr on your own schedule</li>
+        <li><div class="dl-check">✓</div> Teach subjects you're genuinely good at</li>
+        <li><div class="dl-check">✓</div> Build your profile & reviews on campus</li>
+        <li><div class="dl-check">✓</div> Flexible — 1 session or 10, you choose</li>
+        <li><div class="dl-check">✓</div> Resume gold: "Peer Tutor, EduNexus, LPU"</li>
+      </ul>
+      <button class="dual-cta btn btn-green" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'});switchTab('tutor')">Register as Tutor →</button>
+      <div class="dual-deco">🎓</div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="section section-surface">
+  <div class="section-kicker">Subjects Covered</div>
+  <div class="section-h">Every subject in your LPU syllabus</div>
+  <p class="section-p">From 1st year fundamentals to 4th year specialisations — we've got peer tutors for all of it.</p>
+  <div class="subjects-grid">
+    <div class="subj-pill">📐 Mathematics & Calculus</div>
+    <div class="subj-pill">💻 Data Structures & Algorithms</div>
+    <div class="subj-pill">🤖 Machine Learning & AI</div>
+    <div class="subj-pill">🐍 Python & Programming</div>
+    <div class="subj-pill">⚡ Physics</div>
+    <div class="subj-pill">🗄️ DBMS</div>
+    <div class="subj-pill">🌐 Computer Networks</div>
+    <div class="subj-pill">🖥️ Operating Systems</div>
+    <div class="subj-pill">🔌 Digital Electronics</div>
+    <div class="subj-pill">📊 Statistics & Probability</div>
+    <div class="subj-pill">📝 English & Communication</div>
+    <div class="subj-pill">💰 Economics & Finance</div>
+    <div class="subj-pill">☕ Java & OOP</div>
+    <div class="subj-pill">🌍 Web Development</div>
+    <div class="subj-pill">📦 Data Science</div>
+    <div class="subj-pill">🔐 Cyber Security</div>
+  </div>
+</section>
+
+<!-- STATS BAND (pre-launch messaging) -->
+<div class="stats-band">
+  <div><div class="stat-n">LPU</div><div class="stat-l">Launching here first</div></div>
+  <div><div class="stat-n">Free</div><div class="stat-l">First demo session</div></div>
+  <div><div class="stat-n">&lt;3min</div><div class="stat-l">Target tutor match time</div></div>
+  <div><div class="stat-n">₹0</div><div class="stat-l">To register & join</div></div>
+</div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-kicker">FAQ</div>
+  <div class="section-h">Questions? We've got answers.</div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Who can join EduNexus? <span class="arrow">▼</span></button><div class="faq-a"><div class="faq-a-inner">Right now, EduNexus is exclusively for students of Lovely Professional University (LPU). You'll register using your LPU email ID. We plan to expand to other colleges after the LPU launch.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I become a tutor? <span class="arrow">▼</span></button><div class="faq-a"><div class="faq-a-inner">Any LPU student with a strong grasp of a subject can become a tutor. Just register with the "I can teach" option, tell us your subjects and CGPA, and we'll review your profile. No minimum experience required — just genuine subject knowledge.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is EduNexus free to join? <span class="arrow">▼</span></button><div class="faq-a"><div class="faq-a-inner">Registering is completely free. Your first demo session is also free. After that, you pay per hour directly to your tutor. Pricing is set by the tutor (typically ₹100–₹500/hr) with no platform subscription fees right now.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can sessions happen offline on campus? <span class="arrow">▼</span></button><div class="faq-a"><div class="faq-a-inner">Yes! Since both students and tutors are on the same campus, you can meet in the library, a study room, or any preferred spot. Online video sessions are also fully supported.</div></div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">When does EduNexus officially launch? <span class="arrow">▼</span></button><div class="faq-a"><div class="faq-a-inner">We're currently in early access / pre-launch at LPU. By registering now, you'll be among the first notified when we go live. We're actively building the platform and tutor network before the official launch.</div></div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <h2>Ready to learn smarter at LPU?</h2>
+  <p>Join the early access waitlist — free forever to sign up, no spam, just your tutor when we launch.</p>
+  <div class="cta-btns">
+    <button class="btn btn-white" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'});switchTab('student')">Find a Tutor</button>
+    <button class="btn btn-outline-white" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'});switchTab('tutor')">Register as Tutor</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><div class="logo-mark">EN</div>EduNexus</div>
+      <div class="footer-tagline">Peer-to-peer learning platform for LPU students. Starting at LPU, expanding everywhere.</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Platform</h5><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Subjects</h5><ul><li><a href="services.html">CSE Subjects</a></li><li><a href="services.html">Mathematics</a></li><li><a href="services.html">All Subjects</a></li></ul></div>
+      <div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 EduNexus. All rights reserved.</p>
+    <div class="lpu-tag">📍 Launching at LPU, Phagwara</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+function switchTab(role) {
+  const isStudent = role === 'student';
+  document.getElementById('tab-student').className = 'tab-btn' + (isStudent ? ' active' : '');
+  document.getElementById('tab-tutor').className = 'tab-btn' + (!isStudent ? ' active' : '');
+  document.getElementById('tutor-extra').className = 'tutor-extra' + (!isStudent ? ' show' : '');
+  document.getElementById('subj-label').textContent = isStudent ? 'Subject You Need Help In' : 'Subject You Can Teach';
+  document.getElementById('submit-text').textContent = isStudent ? 'Request Early Access →' : 'Register as Tutor →';
+}
+function openTab(role) { setTimeout(() => switchTab(role), 100); }
+function handleSubmit() {
+  const name = document.getElementById('inp-name').value.trim();
+  const email = document.getElementById('inp-email').value.trim();
+  const course = document.getElementById('inp-course').value;
+  const subject = document.getElementById('inp-subject').value;
+  if (!name || !email || !course || !subject) {
+    [document.getElementById('inp-name'), document.getElementById('inp-email'), document.getElementById('inp-course'), document.getElementById('inp-subject')].forEach(el => {
+      if (!el.value.trim()) { el.style.borderColor='#ef4444'; setTimeout(()=>el.style.borderColor='',2000); }
+    }); return;
+  }
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('success-state').className = 'success-state show';
+}
+</script>
+</body>
+</html>

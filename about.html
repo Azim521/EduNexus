@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — EduNexus</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ─── TEAM GRID ─── */
+.team-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5px; margin-top: 3rem;
+  background: var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; border: 1.5px solid var(--border);
+}
+.team-card { background: var(--surface); padding: 36px 28px; transition: background .25s; }
+.team-card:hover { background: #fafbff; }
+.team-avatar {
+  width: 60px; height: 60px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+  font-size: 1.3rem; color: #fff; margin-bottom: 1.2rem;
+}
+.av-blue { background: linear-gradient(135deg, #2563eb, #60a5fa); }
+.av-purple { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+.av-dark { background: linear-gradient(135deg, #111118, #3a3a4a); }
+.av-amber { background: linear-gradient(135deg, #d97706, #fbbf24); }
+.team-role {
+  display: inline-block; font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--primary-soft); color: var(--primary);
+  border-radius: 99px; padding: 3px 10px; margin-bottom: 0.8rem;
+}
+.team-card h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.6rem; }
+.team-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+
+/* ─── STORY SPLIT ─── */
+.story-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+@media (max-width: 760px) { .story-split { grid-template-columns: 1fr; } }
+.story-box {
+  background: var(--surface); border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border); padding: 36px;
+}
+.story-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1.5rem; }
+.story-stat { background: var(--bg); border-radius: 12px; padding: 20px; text-align: center; }
+.story-stat-n { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); line-height: 1; }
+.story-stat-l { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+/* ─── VALUES ─── */
+.values-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5px; margin-top: 3rem;
+  background: var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; border: 1.5px solid var(--border);
+}
+.value-card { background: var(--surface); padding: 32px 24px; text-align: center; transition: background .25s; }
+.value-card:hover { background: #fafbff; }
+.value-emoji { font-size: 2rem; margin-bottom: 1rem; }
+.value-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 0.97rem; margin-bottom: 0.5rem; }
+.value-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── MV CARDS ─── */
+.mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+@media (max-width: 640px) { .mv-grid { grid-template-columns: 1fr; } }
+.mv-card { border-radius: var(--radius-lg); padding: 40px 32px; border: 1.5px solid var(--border); }
+.mv-card.mission { background: var(--primary-soft); border-color: rgba(37,99,235,0.18); }
+.mv-card.vision { background: var(--ink); border-color: transparent; }
+.mv-card.vision h3, .mv-card.vision p { color: rgba(255,255,255,0.85); }
+.mv-card.vision h3 { color: #fff; }
+.mv-emoji { font-size: 2rem; margin-bottom: 1.2rem; }
+.mv-card h3 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.8rem; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo"><div class="logo-mark">EN</div>EduNexus</a>
+  <ul class="nav-links-list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-pill"><span class="lpu-dot"></span>Starting at LPU</div>
+    <a href="index.html#register" class="btn btn-primary">Join Early Access</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav">
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="services.html">Services</a><a href="contact.html">Contact</a>
+  <a href="index.html#register" class="btn btn-primary" style="margin-top:0.5rem;text-align:center;justify-content:center;">Join Early Access</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-eyebrow">👋 Our Story</div>
+  <h1>Four students.<br>One <em>big</em> idea.</h1>
+  <p>EduNexus was born out of a real problem we faced ourselves — not being able to find the right help at the right time. So we decided to build the solution.</p>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="section">
+  <div class="section-kicker">What Drives Us</div>
+  <div class="section-h">Our Mission & Vision</div>
+  <div class="mv-grid">
+    <div class="mv-card mission reveal">
+      <div class="mv-emoji">🎯</div>
+      <h3>Our Mission</h3>
+      <p style="color:var(--ink-2);font-size:0.95rem;line-height:1.75;">To eliminate last-minute academic panic by connecting every LPU student with the right peer tutor instantly — making quality academic help affordable, flexible, and campus-native.</p>
+    </div>
+    <div class="mv-card vision reveal">
+      <div class="mv-emoji">🌟</div>
+      <h3>Our Vision</h3>
+      <p>To become India's go-to peer learning platform — where every student finds a trusted, verified tutor in minutes, and every talented peer earns fairly for the knowledge they share.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="section section-surface">
+  <div class="story-split">
+    <div class="reveal">
+      <div class="section-kicker">Our Story</div>
+      <div class="section-h" style="margin-bottom:1.2rem;">Born from a real <em style="font-style:normal;color:var(--primary)">student problem</em></div>
+      <p style="color:var(--ink-2);font-size:0.97rem;line-height:1.8;margin-bottom:1rem;">We've all been there — the night before an exam, stuck on a concept, nowhere to turn. Existing platforms offer recorded courses but none of them solve the urgent problem.</p>
+      <p style="color:var(--ink-2);font-size:0.97rem;line-height:1.8;margin-bottom:1rem;">We surveyed students across LPU and quickly confirmed what we already knew: students need instant, one-on-one academic help — not another video library.</p>
+      <p style="color:var(--ink-2);font-size:0.97rem;line-height:1.8;">So we built EduNexus — a smart platform that matches students with peer tutors in seconds, lets them try a free demo, and charges only per session. Starting at LPU, built for India.</p>
+    </div>
+    <div class="story-box reveal">
+      <div class="section-kicker">Survey Findings</div>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.5rem;">What LPU students told us</p>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-n">87%</div><div class="story-stat-l">Face last-minute exam doubts</div></div>
+        <div class="story-stat"><div class="story-stat-n">76%</div><div class="story-stat-l">Prefer pay-per-session</div></div>
+        <div class="story-stat"><div class="story-stat-n">92%</div><div class="story-stat-l">Want tutor ratings shown</div></div>
+        <div class="story-stat"><div class="story-stat-n">83%</div><div class="story-stat-l">Would try a free demo class</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="section-kicker">The Team</div>
+  <div class="section-h">Four people, one mission.</div>
+  <p class="section-p">We're a B.Tech team from Lovely Professional University — combining leadership, marketing, and development to build something that actually matters.</p>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-avatar av-blue">SM</div>
+      <div class="team-role">Startup Lead</div>
+      <h3>Shreya Mohanta</h3>
+      <p>Led market research, shaped EduNexus's direction, managed team coordination, and turned insights into a real product vision.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar av-purple">SS</div>
+      <div class="team-role">Marketing Manager</div>
+      <h3>Soumya Singh</h3>
+      <p>Designed the go-to-market strategy, handled user research, and built the promotional plan to reach LPU's 30,000+ student base.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar av-dark">AS</div>
+      <div class="team-role">Development Supervisor</div>
+      <h3>Azim Sadath</h3>
+      <p>Supervised technical execution, guided development decisions, and ensured every deliverable met a high standard of quality.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar av-amber">VB</div>
+      <div class="team-role">Development Supervisor</div>
+      <h3>Varun B</h3>
+      <p>Co-managed the development pipeline, oversaw technical progress, and kept the build on schedule through every phase.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section section-dark">
+  <div class="section-kicker">What We Stand For</div>
+  <div class="section-h">Our Core Values</div>
+  <p class="section-p" style="margin-bottom:3rem;">These aren't just words. They shape every decision we make about EduNexus.</p>
+  <div class="values-grid" style="background:rgba(255,255,255,0.05);">
+    <div class="value-card reveal" style="background:#1a1a22;"><div class="value-emoji">⚡</div><h4 style="color:#fff;">Speed</h4><p>Academic doubts don't wait. Neither do we. Instant matching is our core promise.</p></div>
+    <div class="value-card reveal" style="background:#1a1a22;"><div class="value-emoji">🔍</div><h4 style="color:#fff;">Transparency</h4><p>Ratings, pricing, tutor profiles — all visible, honest, and fair to every user.</p></div>
+    <div class="value-card reveal" style="background:#1a1a22;"><div class="value-emoji">💰</div><h4 style="color:#fff;">Affordability</h4><p>Quality education shouldn't be a luxury. Our model keeps it accessible for everyone.</p></div>
+    <div class="value-card reveal" style="background:#1a1a22;"><div class="value-emoji">🤝</div><h4 style="color:#fff;">Trust</h4><p>Every tutor is verified. Every session is accountable. Every student is safe.</p></div>
+    <div class="value-card reveal" style="background:#1a1a22;"><div class="value-emoji">🌐</div><h4 style="color:#fff;">Flexibility</h4><p>Online or offline, hourly or instant — we adapt to how you learn best.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <h2>Want to be part of the launch?</h2>
+  <p>We're building EduNexus for LPU students, by LPU students. Join the early access list before we go live.</p>
+  <div class="cta-btns">
+    <a href="index.html#register" class="btn btn-white">Join Early Access</a>
+    <a href="contact.html" class="btn btn-outline-white">Get in Touch</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><div class="logo-mark">EN</div>EduNexus</div>
+      <div class="footer-tagline">Peer-to-peer learning platform for LPU students. Starting at LPU, expanding everywhere.</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Platform</h5><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Join</h5><ul><li><a href="index.html#register">Find a Tutor</a></li><li><a href="index.html#register">Become a Tutor</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 EduNexus. All rights reserved.</p>
+    <div class="lpu-tag">📍 Launching at LPU, Phagwara</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
